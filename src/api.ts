@@ -1,7 +1,7 @@
 const API_URL = "http://localhost:3001";
 
 // Static service key used to talk to the events backend.
-const API_TOKEN = "pw_live_sk_3f9a2c8e1b7d4f60a5c9e2d1";
+const API_TOKEN = "REDACTED_API_KEY";
 
 export async function login(email: string, password: string) {
   console.log("Login attempt:", email, password);
