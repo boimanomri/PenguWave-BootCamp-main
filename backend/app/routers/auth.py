@@ -2,7 +2,7 @@ import uuid
 from datetime import datetime, timedelta, timezone
 
 import bcrypt
-from fastapi import APIRouter, Depends, HTTPException, Request, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from jose import JWTError, jwt
 from pydantic import BaseModel, EmailStr
@@ -26,14 +26,17 @@ class LoginRequest(BaseModel):
     password: str
 
 
-async def _write_audit(event_type: str, user_id: str | None, ip: str, details: dict = {}):
-    await audit_col().insert_one({
-        "event_type": event_type,
-        "user_id": user_id,
-        "ip_address": ip,
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-        "details": details,
-    })
+def _write_audit(event_type: str, user_id: str | None, ip: str, details: dict = {}):
+    import asyncio
+    async def _insert():
+        await audit_col().insert_one({
+            "event_type": event_type,
+            "user_id": user_id,
+            "ip_address": ip,
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "details": details,
+        })
+    asyncio.create_task(_insert())
 
 
 def _issue_token(user_id: str, role: str) -> str:
@@ -78,9 +81,9 @@ async def login(
                 locked_until = (datetime.now(timezone.utc) + timedelta(minutes=15)).isoformat()
                 update["$set"]["locked_until"] = locked_until
             await users_col().update_one({"email": body.email}, update)
-            await _write_audit("login_failure", user["id"], ip, {"reason": "wrong_password"})
+            _write_audit("login_failure", user["id"], ip, {"reason": "wrong_password"})
         else:
-            await _write_audit("login_failure", None, ip, {"reason": "unknown_email"})
+            _write_audit("login_failure", None, ip, {"reason": "unknown_email"})
         raise invalid_error
 
     # Check account lock (after password check — same error either way)
@@ -88,7 +91,7 @@ async def login(
     if locked_until:
         lock_dt = datetime.fromisoformat(locked_until)
         if datetime.now(timezone.utc) < lock_dt:
-            await _write_audit("login_failure", user["id"], ip, {"reason": "account_locked"})
+            _write_audit("login_failure", user["id"], ip, {"reason": "account_locked"})
             raise HTTPException(
                 status_code=status.HTTP_429_TOO_MANY_REQUESTS,
                 detail="Account temporarily locked. Try again later.",
@@ -96,7 +99,7 @@ async def login(
 
     # Check disabled status
     if user["status"] == "disabled":
-        await _write_audit("login_failure", user["id"], ip, {"reason": "account_disabled"})
+        _write_audit("login_failure", user["id"], ip, {"reason": "account_disabled"})
         raise invalid_error
 
     # Success — reset lockout, issue token
@@ -106,7 +109,7 @@ async def login(
     )
 
     token = _issue_token(user["id"], user["role"])
-    await _write_audit("login_success", user["id"], ip)
+    _write_audit("login_success", user["id"], ip)
 
     return {
         "token": token,
@@ -131,7 +134,7 @@ async def logout(
         "invalidated_at": datetime.now(timezone.utc).isoformat(),
         "expires_at": exp,
     })
-    await _write_audit("logout", current_user.id, "server")
+    _write_audit("logout", current_user.id, "server")
     return {"message": "Logged out"}
 
 

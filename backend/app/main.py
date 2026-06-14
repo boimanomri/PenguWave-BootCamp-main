@@ -1,7 +1,9 @@
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 
@@ -19,11 +21,18 @@ async def lifespan(app: FastAPI):
     await close_client()
 
 
+async def _clean_validation_error(request: Request, exc: RequestValidationError):
+    """Return only the human-readable message, not internal field paths or raw input."""
+    messages = [e.get("msg", "Invalid input") for e in exc.errors()]
+    return JSONResponse(status_code=422, content={"error": "; ".join(messages)})
+
+
 app = FastAPI(
     title="PenguWave API",
     docs_url=None,   # disable Swagger UI in prod
     redoc_url=None,
     lifespan=lifespan,
+    exception_handlers={RequestValidationError: _clean_validation_error},
 )
 
 # Rate limiter
@@ -42,10 +51,10 @@ app.add_middleware(
     allow_headers=["Authorization", "Content-Type", "X-Api-Key"],
 )
 
-from app.routers import auth
+from app.routers import auth, events, users
 app.include_router(auth.router, prefix="/api/auth")
-# app.include_router(events.router, prefix="/api/events")
-# app.include_router(users.router, prefix="/api/users")
+app.include_router(events.router, prefix="/api/events")
+app.include_router(users.router, prefix="/api/users")
 
 
 @app.get("/health")
